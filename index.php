@@ -1,6 +1,24 @@
 <?php
 session_start();
 
+// ------------------------------
+//  CONTROL DE DURACIÓN DE SESIÓN
+// ------------------------------
+$session_duration = 6 * 60 * 60; // 6 horas en segundos
+
+if (isset($_SESSION['last_activity'])) {
+    if (time() - $_SESSION['last_activity'] > $session_duration) {
+        session_unset();
+        session_destroy();
+        header("Location: login.php?timeout=1");
+        exit;
+    }
+}
+
+// Actualizar tiempo de última actividad
+$_SESSION['last_activity'] = time();
+
+// Verificar si usuario está logueado
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
@@ -8,10 +26,12 @@ if (!isset($_SESSION['user_id'])) {
 
 require 'db.php';
 
+// ------------------------------
+//  REGISTRO DE ENTREGAS
+// ------------------------------
 $message = "";
 $messageType = "is-info";
 
-// Registrar entrega desde el botón de "Marcar como entregado"
 if (isset($_POST['entregar'])) {
     $codAlumno = $_POST['codAlumno'];
     $operador  = $_SESSION['username'] ?? 'Sistema';
@@ -43,11 +63,17 @@ if (isset($_POST['entregar'])) {
     }
 }
 
-
-// Obtener todos los estudiantes
+// ------------------------------
+//  OBTENER ESTUDIANTES Y TOTAL ENTREGADOS
+// ------------------------------
 $stmt = $pdo->query("SELECT CodAlumno, Nombres1, Cedula1 FROM estudiantes ORDER BY Nombres1");
 $estudiantes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmtCount = $pdo->query("SELECT COUNT(*) AS total_entregados FROM entregas");
+$countResult = $stmtCount->fetch(PDO::FETCH_ASSOC);
+$totalEntregados = $countResult['total_entregados'] ?? 0;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -65,8 +91,9 @@ $estudiantes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="level-left">
                 <a href="logout.php" class="button is-danger is-small">Salir</a>
             </div>
-            <h1 class="title has-text-centered">Registro de Refrigerios</h1>
-
+            <h1 class="title has-text-centered">
+                Registro de Refrigerios (<?= $totalEntregados ?>)
+            </h1>
         </div>
 
         
