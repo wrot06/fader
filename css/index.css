@@ -1,0 +1,38 @@
+/* Fondo general */
+body { 
+    background-color: #f5f5f5; 
+}
+
+/* Contenedor centrado */
+.container { 
+    max-width: 900px; 
+    margin: 30px auto; 
+}
+
+/* Notificaciones centradas */
+.notification { 
+    text-align: center; 
+}
+
+/* Tabla full width */
+table { 
+    width: 100%; 
+}
+
+/* Campo de búsqueda */
+.search { 
+    margin-bottom: 20px; 
+}
+
+/* Card opcional para el header */
+.title.has-text-centered {
+    margin-bottom: 20px;
+}
+
+p.nombres {
+    font-size: 28px;
+}
+
+input#searchInput {
+    font-size: 30px;
+}
