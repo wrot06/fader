@@ -33,6 +33,14 @@ p.nombres {
     font-size: 28px;
 }
 
-input#searchInput {
-    font-size: 30px;
+
+
+.notification.is-success {
+    font-size: 25px;
+}
+
+.notification.is-warning {
+    background-color: #ffe08a;
+    color: rgba(0, 0, 0, .7);
+    font-size: 25px;
 }

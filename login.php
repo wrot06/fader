@@ -54,20 +54,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="field">
                     <label class="label">Usuario</label>
                     <div class="control">
-                        <input class="input" type="text" name="username" required autofocus>
+                        <input class="input is-large" type="text" name="username" required autofocus>
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Contraseña</label>
                     <div class="control">
-                        <input class="input" type="password" name="password" required>
+                        <input class="input is-large" type="password" name="password" required>
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="control has-text-centered">
-                        <button class="button is-primary is-fullwidth" type="submit">Entrar</button>
+                        <button class="button is-primary is-large is-fullwidth" type="submit">Entrar</button>
                     </div>
                 </div>
             </form>
